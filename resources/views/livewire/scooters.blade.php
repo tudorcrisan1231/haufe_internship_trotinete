@@ -1,8 +1,13 @@
 <div>
     @if($scootersModal)
         <div class="w-full sm:w-1/2 lg:w-1/3 bg-white h-full fixed top-0 right-0 py-6 px-4 overflow-auto" style="z-index: 999;">
-            <svg wire:click="closeScootersModal" class="w-10 h-10 cursor-pointer mb-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12L5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg>
-            <div class="font-bold text-2xl">Scooter group locations near you:</div>
+            <svg wire:click="closeScootersModal" class="w-10 h-10 cursor-pointer absolute top-6 right-2 p-1 rounded bg-gray-100 hover:bg-gray-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12L5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/></svg>
+            <div class="font-bold text-2xl">
+                @if(auth()->check())
+                    Hello, {{auth()->user()->name}},
+                @endif
+                scooter group locations near you:
+            </div>
             <div class="flex flex-col  gap-2 mt-10 w-full">
                 @if($currentRide)
                     @php
@@ -180,7 +185,7 @@
                             </select>
 
                             @if($endRideDistance)
-                                @if($endRideDistance < 0.2)
+                                @if($endRideDistance < 0.4)
                                     <p class="text-green-500 text-xs mt-1">
                                         You are close to the location.
                                     </p>
@@ -198,7 +203,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b">
-                        @if($endRideDistance && $endRideDistance < 0.2)
+                        @if($endRideDistance && $endRideDistance < 0.4)
                         <button wire:click="endRide" type="button" id="save_lang" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                             Pay
                         </button>
