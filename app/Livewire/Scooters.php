@@ -90,8 +90,7 @@ class Scooters extends Component
         $longitude = $_COOKIE['longitude'];
         
         $endRideLocationCoordinates = Scooter::where('id', $this->endRideLocation)->first();
-
-        $this->endRideDistance = $this->calculateDistance($latitude, $longitude, $endRideLocationCoordinates->latitude, $endRideLocationCoordinates->longitude);
+        $this->endRideDistance = $this->calculateDistance($latitude, $longitude, $endRideLocationCoordinates->latitude ?? 1, $endRideLocationCoordinates->longitude ?? 1);
     }
 
     public function calculateDistance($lat1, $lon1, $lat2, $lon2) {

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Scooter;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Models\Reservation;
 
 class AdminDashboard extends Component
 {
@@ -43,6 +44,19 @@ class AdminDashboard extends Component
         $group->save();
 
         $this->reset(['name', 'location', 'status', 'number', 'price']);
+        $this->scooters = Scooter::all();
+    }
+
+    public function deleteLocation($id){
+        $checkReservation = Reservation::where('scooter_id', $id)->whereNull('end_time')->first();
+
+        if($checkReservation){
+            return redirect()->route('dashboard')->with('error', 'Scooter is in use. Cannot delete!');
+        }
+
+        $group = Scooter::find($id);
+        $group->delete();
+
         $this->scooters = Scooter::all();
     }
 

@@ -89,7 +89,7 @@
                         <td class="px-6 py-4 text-right">
                             <div class="flex items-center justify-end gap-4">
                                 <div class="font-medium text-blue-600 hover:underline cursor-pointer">Edit</div>
-                                <div class="font-medium text-red-600 hover:underline cursor-pointer">Delete</div>
+                                <div wire:click="deleteLocation({{$scooter->id}})" wire:confirm="Are you sure?" class="font-medium text-red-600 hover:underline cursor-pointer">Delete</div>
                             </div>
                         </td>
                     </tr>
